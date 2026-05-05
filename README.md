@@ -12,7 +12,7 @@ A simple, modular, and highly customizable immediate mode Desktop GUI framework.
 
 ### 🎯 Purpose & Goal
 
-DGUI is designed to be a lightweight, flexible and highly customizable.
+`dgui` is designed to be a lightweight, flexible and highly customizable.
 
 - 🎮 For both desktop tools and in-game HUDs.
 - ✨ Layout, styling are completely customizable.
