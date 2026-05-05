@@ -1,11 +1,13 @@
 [package]
-name = "zenui"
+name = "dgui"
 version = "0.0.1"
 edition = "2024"
 license = "MIT"
 description = "A Simple Modular GUI FrameWork. (In Development)"
-keywords = ["gui", "zenui"]
+keywords = ["gui", "dgui"]
 categories = ["gui"]
 
-
 [dependencies]
+taffy = "0.10"
+lyon = "1"
+cosmic-text = "0.19"
