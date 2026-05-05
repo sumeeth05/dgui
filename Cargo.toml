@@ -1,0 +1,11 @@
+[package]
+name = "zenui"
+version = "0.0.1"
+edition = "2024"
+license = "MIT"
+description = "A Simple Modular GUI FrameWork. (In Development)"
+keywords = ["gui", "zenui"]
+categories = ["gui"]
+
+
+[dependencies]
