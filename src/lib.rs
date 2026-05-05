@@ -1,8 +1,15 @@
+use thiserror::Error;
+
+mod layout;
 mod styles;
+mod tessellation;
 mod widgets;
 
+#[derive(Debug, Error)]
+#[non_exhaustive]
+pub enum Error {}
+
 pub type Result<T> = std::result::Result<T, Error>;
-pub type Error = Box<dyn std::error::Error>;
 
 pub struct Ui {}
 
