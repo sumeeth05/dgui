@@ -1,4 +1,4 @@
-# ⭐ dgui (desktop GUI)
+# 💻 dgui (desktop GUI)
 
 A simple, modular, and highly customizable immediate mode Desktop GUI framework.
 
