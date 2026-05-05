@@ -4,10 +4,10 @@ mod widgets;
 pub type Result<T> = std::result::Result<T, Error>;
 pub type Error = Box<dyn std::error::Error>;
 
-pub struct UI {}
+pub struct Ui {}
 
-impl UI {
-    pub fn init() -> Result<Self> {
+impl Ui {
+    pub fn new() -> Result<Self> {
         Ok(Self {})
     }
 }
