@@ -4,7 +4,7 @@ A simple, modular, and highly customizable immediate mode Desktop GUI framework.
 
 [![GitHub](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/sumeeth05/dgui)
 [![Crates.io](https://img.shields.io/crates/v/dgui.svg?color=orange)](https://crates.io/crates/dgui)
-[![Docs](https://img.shields.io/docsrs/dgui?color=green)](https://docs.rs/dgui/latest/dgui/)
+[![Docs](https://img.shields.io/badge/docs-dgui-green)](https://docs.rs/dgui/latest/dgui/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/sumeeth05/dgui/blob/main/LICENSE)
 
 > [!WARNING]
