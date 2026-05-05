@@ -10,7 +10,7 @@ A simple, modular, and highly customizable immediate mode Desktop GUI framework.
 > [!WARNING]
 > ⚠️ Note: DGUI is currently in active development.
 
-## 🎯 Purpose & Goal
+### 🎯 Purpose & Goal
 
 DGUI is designed to be a lightweight, flexible and highly customizable.
 
@@ -19,6 +19,6 @@ DGUI is designed to be a lightweight, flexible and highly customizable.
 - 🚀 Keeps the API minimal while using fast, modern Rust crates underneath.
 - 🔀 Native Node Graph Support.
 
-## 📄 License
+### 📄 License
 
 Licensed under the MIT License.
