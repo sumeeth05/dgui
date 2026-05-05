@@ -1,4 +1,4 @@
-# 🖥️ DGUI
+# 🖥️ DGUI : Desktop GUI
 
 A simple, modular, and highly customizable immediate mode Desktop GUI framework.
 
@@ -9,11 +9,10 @@ A simple, modular, and highly customizable immediate mode Desktop GUI framework.
 
 DGUI is designed to be a lightweight, flexible and highly customizable.
 
-Goals :
-
-- **🎮 Build for Apps & Games:** Works perfectly for both standard desktop tools and in-game HUDs.
-- **✨ Highly Customizable:** Layout, styling, and rendering layers are completely customizable.
-- **🚀 Easy to Use:** Keeps the API minimal while using fast, modern Rust crates underneath.
+- 🎮 For both desktop tools and in-game HUDs.
+- ✨ Layout, styling are completely customizable.
+- 🚀 Keeps the API minimal while using fast, modern Rust crates underneath.
+- 🔀 Native Node Graph Support.
 
 ## 📄 License
 
