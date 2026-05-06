@@ -20,3 +20,5 @@ mod tabs;
 mod text;
 mod textinput;
 mod window;
+
+pub use button::ButtonStyle;

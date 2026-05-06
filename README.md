@@ -1,6 +1,6 @@
 ## 🦀 dgui (desktop GUI)
 
-A simple, modular, and highly customizable immediate mode Desktop GUI framework.
+A simple, modular, and highly customizable retained mode Desktop GUI framework.
 
 [![GitHub](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/sumeeth05/dgui)
 [![Crates.io](https://img.shields.io/crates/v/dgui.svg?color=orange)](https://crates.io/crates/dgui)

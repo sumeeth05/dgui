@@ -12,9 +12,9 @@ pub enum Error {}
 
 pub type Result<T> = std::result::Result<T, Error>;
 
-pub struct Ui {}
+pub struct Gui {}
 
-impl Ui {
+impl Gui {
     pub fn new() -> Result<Self> {
         Ok(Self {})
     }
