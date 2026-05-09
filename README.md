@@ -16,7 +16,7 @@ A simple, modular, and highly customizable retained mode Desktop GUI framework.
 
 - 🎮 For both desktop tools and in-game HUDs.
 - ✨ Layout, styling are completely customizable.
-- 🚀 Keeps the API minimal while using fast, modern Rust crates underneath.
+- 🚀 Easy to use API, while maintaining 60fps.
 - 🔀 Native Node Graph Support.
 
 ### 📄 License
