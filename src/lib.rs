@@ -2,6 +2,7 @@ use thiserror::Error;
 
 use crate::{styles::Style, widgets::Kind};
 
+mod layout;
 mod styles;
 mod widgets;
 
@@ -50,10 +51,34 @@ impl Widget {
         })
     }
 
+    pub fn splitter(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+        Ok(Self {
+            kind: Kind::Splitter,
+            children,
+            styles,
+        })
+    }
+
+    pub fn window(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+        Ok(Self {
+            kind: Kind::Window,
+            children,
+            styles,
+        })
+    }
+
     pub fn button(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::Button,
             children,
+            styles,
+        })
+    }
+
+    pub fn switch(styles: Option<Style>) -> Result<Self> {
+        Ok(Self {
+            kind: Kind::Switch,
+            children: None,
             styles,
         })
     }
@@ -125,6 +150,14 @@ impl Widget {
     pub fn rich_text(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::RichText,
+            children,
+            styles,
+        })
+    }
+
+    pub fn icon(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+        Ok(Self {
+            kind: Kind::Icon,
             children,
             styles,
         })

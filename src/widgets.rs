@@ -3,9 +3,12 @@ pub enum Kind {
     ScrollArea,
     Tabs,
     Collapsible,
+    Splitter,
+    Window,
 
     Button,
     Checkbox,
+    Switch,
     RadioButton,
     Slider,
     DragValue,
@@ -14,6 +17,7 @@ pub enum Kind {
     ComboBox,
 
     Text,
+    Icon,
     RichText,
     Image,
     ProgressBar,
