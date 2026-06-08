@@ -5,11 +5,12 @@ edition = "2024"
 license = "MIT"
 description = "A Simple Modular GUI FrameWork. (In Development)"
 keywords = ["gui", "dgui"]
-categories = ["gui"]
+categories = ["gui", "windows", "macos", "linux"]
 repository = "https://github.com/sumeeth05/dgui"
 homepage = "https://github.com/sumeeth05/dgui"
 
 [dependencies]
+taffy = "0.10"
 lyon = "1"
 cosmic-text = "0.19"
 thiserror = "2"

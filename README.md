@@ -8,7 +8,7 @@ A simple, modular, and highly customizable retained mode Desktop GUI framework.
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/sumeeth05/dgui/blob/main/LICENSE)
 
 > [!WARNING]
-> ⚠️ Note: DGUI is currently in active development.
+> ⚠️ Note: DGUI is currently in active development and not recommended for production use.
 
 ### 🎯 Purpose & Goal
 
