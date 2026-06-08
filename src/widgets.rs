@@ -1,22 +1,25 @@
-mod button;
-mod canvas;
-mod checkbox;
-mod collapsible;
-mod colorpicker;
-mod combobox;
-mod container;
-mod dragvalue;
-mod header;
-mod hyperlink;
-mod image;
-mod mainpanel;
-mod progressbar;
-mod radiobutton;
-mod richtext;
-mod scrollarea;
-mod separator;
-mod slider;
-mod tabs;
-mod text;
-mod textinput;
-mod window;
+pub enum Kind {
+    Panel,
+    ScrollArea,
+    Tabs,
+    Collapsible,
+
+    Button,
+    Checkbox,
+    RadioButton,
+    Slider,
+    DragValue,
+    TextInput,
+    ColorPicker,
+    ComboBox,
+
+    Text,
+    RichText,
+    Image,
+    ProgressBar,
+    Hyperlink,
+    Separator,
+    Canvas,
+
+    Node,
+}

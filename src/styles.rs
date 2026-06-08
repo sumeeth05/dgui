@@ -1,24 +1,3 @@
-mod button;
-mod canvas;
-mod checkbox;
-mod collapsible;
-mod colorpicker;
-mod combobox;
-mod container;
-mod dragvalue;
-mod header;
-mod hyperlink;
-mod image;
-mod mainpanel;
-mod progressbar;
-mod radiobutton;
-mod richtext;
-mod scrollarea;
-mod separator;
-mod slider;
-mod tabs;
-mod text;
-mod textinput;
-mod window;
+pub struct Style {}
 
-pub use button::ButtonStyle;
+impl Style {}
