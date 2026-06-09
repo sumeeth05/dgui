@@ -7,5 +7,5 @@ impl Layout {
         Ok(Self {})
     }
 
-    pub fn render() {}
+    pub fn draw() {}
 }
