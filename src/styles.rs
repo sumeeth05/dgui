@@ -1,10 +1,10 @@
 use crate::Result;
 
 pub struct Rgba {
-    red: f32,
-    green: f32,
-    blue: f32,
-    alpha: f32,
+    pub red: f32,
+    pub green: f32,
+    pub blue: f32,
+    pub alpha: f32,
 }
 
 impl Rgba {
@@ -19,10 +19,10 @@ impl Rgba {
 }
 
 pub struct Spacing {
-    top: f32,
-    bottom: f32,
-    left: f32,
-    right: f32,
+    pub top: f32,
+    pub bottom: f32,
+    pub left: f32,
+    pub right: f32,
 }
 
 impl Spacing {

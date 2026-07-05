@@ -1,4 +1,4 @@
-use crate::Result;
+use crate::{DIRTY, Result, signals::Flags};
 
 pub struct Layout {}
 
@@ -7,5 +7,13 @@ impl Layout {
         Ok(Self {})
     }
 
-    pub fn draw() {}
+    pub fn flags() -> Result<Flags> {
+        Ok(DIRTY.with(|f| f.get()))
+    }
+
+    pub fn compile() {}
+
+    pub fn tessellate(&mut self) {
+        DIRTY.with(|f| f.set(Flags::SIGNALED));
+    }
 }

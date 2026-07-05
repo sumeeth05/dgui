@@ -1,9 +1,13 @@
+use std::cell::Cell;
+
 use thiserror::Error;
 
-use crate::{styles::Style, widgets::Kind};
+use crate::{signals::Flags, styles::Style, widgets::Kind};
 
-mod layout;
-mod styles;
+mod events;
+pub mod layout;
+pub mod signals;
+pub mod styles;
 mod widgets;
 
 #[derive(Debug, Error)]
@@ -12,10 +16,14 @@ pub enum Error {}
 
 pub type Result<T> = std::result::Result<T, Error>;
 
+thread_local! {
+    static DIRTY: Cell<Flags> = const { Cell::new(Flags::UNSIGNALED) };
+}
+
 pub struct Widget {
-    kind: Kind,
-    children: Option<Vec<Widget>>,
-    styles: Option<Style>,
+    pub kind: Kind,
+    pub children: Option<Vec<Widget>>,
+    pub styles: Option<Style>,
 }
 
 impl Widget {
@@ -83,10 +91,10 @@ impl Widget {
         })
     }
 
-    pub fn checkbox(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn checkbox(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::Checkbox,
-            children,
+            children: None,
             styles,
         })
     }
@@ -99,34 +107,34 @@ impl Widget {
         })
     }
 
-    pub fn slider(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn slider(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::Slider,
-            children,
+            children: None,
             styles,
         })
     }
 
-    pub fn drag_value(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn drag_value(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::DragValue,
-            children,
+            children: None,
             styles,
         })
     }
 
-    pub fn text_input(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn text_input(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::TextInput,
-            children,
+            children: None,
             styles,
         })
     }
 
-    pub fn color_picker(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn color_picker(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::ColorPicker,
-            children,
+            children: None,
             styles,
         })
     }
@@ -139,58 +147,58 @@ impl Widget {
         })
     }
 
-    pub fn text(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn text(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::Text,
-            children,
+            children: None,
             styles,
         })
     }
 
-    pub fn rich_text(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn rich_text(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::RichText,
-            children,
+            children: None,
             styles,
         })
     }
 
-    pub fn icon(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn icon(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::Icon,
-            children,
+            children: None,
             styles,
         })
     }
 
-    pub fn image(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn image(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::Image,
-            children,
+            children: None,
             styles,
         })
     }
 
-    pub fn progress(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn progress(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::ProgressBar,
-            children,
+            children: None,
             styles,
         })
     }
 
-    pub fn link(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn link(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::Hyperlink,
-            children,
+            children: None,
             styles,
         })
     }
 
-    pub fn separator(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn separator(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::Separator,
-            children,
+            children: None,
             styles,
         })
     }
@@ -203,10 +211,10 @@ impl Widget {
         })
     }
 
-    pub fn node(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
+    pub fn node(styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::Node,
-            children,
+            children: None,
             styles,
         })
     }
