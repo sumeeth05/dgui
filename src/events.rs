@@ -36,7 +36,13 @@ pub struct Position {
     y: f64,
 }
 
-pub enum MouseButton {}
+pub enum MouseButton {
+    Left,
+    Right,
+    Middle,
+    Back,
+    Forward,
+}
 
 #[non_exhaustive]
 pub enum KeyboardEvent {
