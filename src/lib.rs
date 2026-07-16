@@ -2,11 +2,12 @@ use std::cell::Cell;
 
 use thiserror::Error;
 
-use crate::{signals::Flags, styles::Style, widgets::Kind};
+use crate::{signal::Flags, styles::Style, widgets::Kind};
 
 mod events;
 pub mod layout;
-pub mod signals;
+mod primitives;
+pub mod signal;
 pub mod styles;
 mod widgets;
 
@@ -46,6 +47,14 @@ impl Widget {
     pub fn tabs(children: Option<Vec<Widget>>, styles: Option<Style>) -> Result<Self> {
         Ok(Self {
             kind: Kind::Tabs,
+            children,
+            styles,
+        })
+    }
+
+    pub fn tab(children: Option<Vec<Widget>>, styles: Option<Style>, _title: &str) -> Result<Self> {
+        Ok(Self {
+            kind: Kind::Tab,
             children,
             styles,
         })

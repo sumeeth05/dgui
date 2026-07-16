@@ -2,6 +2,7 @@ pub enum Kind {
     Panel,
     ScrollArea,
     Tabs,
+    Tab,
     Collapsible,
     Splitter,
     Window,
