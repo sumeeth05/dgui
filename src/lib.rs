@@ -21,7 +21,7 @@ thread_local! {
 }
 
 pub struct Widget {
-    pub widget_type: WidgetType,
+    pub type_of: WidgetType,
     pub children: Option<Vec<Widget>>,
     pub styles: Option<Style>,
 }
@@ -29,7 +29,7 @@ pub struct Widget {
 impl Widget {
     pub fn panel(children: Vec<Widget>, styles: Option<Style>) -> Self {
         Self {
-            widget_type: WidgetType::Panel,
+            type_of: WidgetType::Panel,
             children: Some(children),
             styles,
         }
@@ -37,7 +37,7 @@ impl Widget {
 
     pub fn scrollarea(children: Vec<Widget>, styles: Option<Style>) -> Self {
         Self {
-            widget_type: WidgetType::ScrollArea,
+            type_of: WidgetType::ScrollArea,
             children: Some(children),
             styles,
         }
@@ -45,7 +45,7 @@ impl Widget {
 
     pub fn tabs(children: Vec<Widget>, styles: Option<Style>) -> Self {
         Self {
-            widget_type: WidgetType::Tabs,
+            type_of: WidgetType::Tabs,
             children: Some(children),
             styles,
         }
@@ -53,7 +53,7 @@ impl Widget {
 
     pub fn tab(children: Vec<Widget>, styles: Option<Style>, label: String) -> Self {
         Self {
-            widget_type: WidgetType::Tab { label },
+            type_of: WidgetType::Tab { label },
             children: Some(children),
             styles,
         }
@@ -66,7 +66,7 @@ impl Widget {
         ontoggle: Box<dyn Fn(bool)>,
     ) -> Self {
         Self {
-            widget_type: WidgetType::Collapsible {
+            type_of: WidgetType::Collapsible {
                 expand,
                 ontoggle: Some(ontoggle),
             },
@@ -77,7 +77,7 @@ impl Widget {
 
     pub fn splitter(children: Vec<Widget>, styles: Option<Style>) -> Self {
         Self {
-            widget_type: WidgetType::Splitter,
+            type_of: WidgetType::Splitter,
             children: Some(children),
             styles,
         }
@@ -85,7 +85,7 @@ impl Widget {
 
     pub fn window(children: Vec<Widget>, styles: Option<Style>) -> Self {
         Self {
-            widget_type: WidgetType::Window,
+            type_of: WidgetType::Window,
             children: Some(children),
             styles,
         }
@@ -98,7 +98,7 @@ impl Widget {
         onhover: Option<Box<dyn Fn()>>,
     ) -> Self {
         Self {
-            widget_type: WidgetType::Button { onclick, onhover },
+            type_of: WidgetType::Button { onclick, onhover },
             children: Some(children),
             styles,
         }
@@ -106,7 +106,7 @@ impl Widget {
 
     pub fn switch(checked: bool, styles: Option<Style>, ontoggle: Box<dyn Fn(bool)>) -> Self {
         Self {
-            widget_type: WidgetType::Switch {
+            type_of: WidgetType::Switch {
                 checked,
                 ontoggle: Some(ontoggle),
             },
@@ -121,21 +121,21 @@ impl Widget {
         styles: Option<Style>,
     ) -> Self {
         Self {
-            widget_type: WidgetType::Checkbox { checked, ontoggle },
+            type_of: WidgetType::Checkbox { checked, ontoggle },
             children: None,
             styles,
         }
     }
 
     pub fn radio_button(
-        label: String,
+        label: impl Into<String>,
         selected: bool,
         onchange: Option<Box<dyn Fn()>>,
         styles: Option<Style>,
     ) -> Self {
         Self {
-            widget_type: WidgetType::RadioButton {
-                label,
+            type_of: WidgetType::RadioButton {
+                label: label.into(),
                 selected,
                 onchange,
             },
@@ -152,7 +152,7 @@ impl Widget {
         styles: Option<Style>,
     ) -> Self {
         Self {
-            widget_type: WidgetType::Slider {
+            type_of: WidgetType::Slider {
                 value,
                 min,
                 max,
@@ -171,7 +171,7 @@ impl Widget {
         styles: Option<Style>,
     ) -> Self {
         Self {
-            widget_type: WidgetType::DragValue {
+            type_of: WidgetType::DragValue {
                 value,
                 min,
                 max,
@@ -183,26 +183,29 @@ impl Widget {
     }
 
     pub fn text_input(
-        value: String,
+        value: impl Into<String>,
         onchange: Option<Box<dyn Fn(String)>>,
         styles: Option<Style>,
     ) -> Self {
         Self {
-            widget_type: WidgetType::TextInput { value, onchange },
+            type_of: WidgetType::TextInput {
+                value: value.into(),
+                onchange,
+            },
             children: None,
             styles,
         }
     }
 
     pub fn select(
-        label: String,
+        label: impl Into<String>,
         options: Vec<String>,
         onchange: Option<Box<dyn Fn(String)>>,
         styles: Option<Style>,
     ) -> Self {
         Self {
-            widget_type: WidgetType::Select {
-                label,
+            type_of: WidgetType::Select {
+                label: label.into(),
                 options,
                 onchange,
             },
@@ -211,52 +214,52 @@ impl Widget {
         }
     }
 
-    pub fn text(text: String, styles: Option<Style>) -> Self {
+    pub fn text(text: impl Into<String>, styles: Option<Style>) -> Self {
         Self {
-            widget_type: WidgetType::Text { text },
+            type_of: WidgetType::Text { text: text.into() },
             children: None,
             styles,
         }
     }
 
-    pub fn icon(source: String, styles: Option<Style>) -> Self {
+    pub fn icon(source: impl Into<String>, styles: Option<Style>) -> Self {
         Self {
-            widget_type: WidgetType::Icon { source },
-            children: None,
-            styles,
-        }
-    }
-
-    pub fn image(source: String, styles: Option<Style>) -> Self {
-        Self {
-            widget_type: WidgetType::Image { source },
-            children: None,
-            styles,
-        }
-    }
-
-    pub fn progress(
-        value: f64,
-        min: f64,
-        max: f64,
-        onchange: Option<Box<dyn Fn()>>,
-        styles: Option<Style>,
-    ) -> Self {
-        Self {
-            widget_type: WidgetType::ProgressBar {
-                value,
-                min,
-                max,
-                onchange,
+            type_of: WidgetType::Icon {
+                source: source.into(),
             },
             children: None,
             styles,
         }
     }
 
-    pub fn link(label: String, onclick: Option<Box<dyn Fn()>>, styles: Option<Style>) -> Self {
+    pub fn image(source: impl Into<String>, styles: Option<Style>) -> Self {
         Self {
-            widget_type: WidgetType::Hyperlink { label, onclick },
+            type_of: WidgetType::Image {
+                source: source.into(),
+            },
+            children: None,
+            styles,
+        }
+    }
+
+    pub fn progress(value: f64, min: f64, max: f64, styles: Option<Style>) -> Self {
+        Self {
+            type_of: WidgetType::ProgressBar { value, min, max },
+            children: None,
+            styles,
+        }
+    }
+
+    pub fn link(
+        label: impl Into<String>,
+        onclick: Option<Box<dyn Fn()>>,
+        styles: Option<Style>,
+    ) -> Self {
+        Self {
+            type_of: WidgetType::Hyperlink {
+                label: label.into(),
+                onclick,
+            },
             children: None,
             styles,
         }
@@ -264,7 +267,7 @@ impl Widget {
 
     pub fn separator(styles: Option<Style>) -> Self {
         Self {
-            widget_type: WidgetType::Separator,
+            type_of: WidgetType::Separator,
             children: None,
             styles,
         }
@@ -272,7 +275,7 @@ impl Widget {
 
     pub fn canvas(children: Vec<Widget>, styles: Option<Style>) -> Self {
         Self {
-            widget_type: WidgetType::Canvas,
+            type_of: WidgetType::Canvas,
             children: Some(children),
             styles,
         }

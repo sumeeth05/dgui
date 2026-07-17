@@ -1,9 +1,6 @@
-use std::{
-    cell::{Ref, RefCell},
-    rc::Rc,
-};
+use std::{cell::RefCell, rc::Rc};
 
-use crate::{DIRTY, Result};
+use crate::DIRTY;
 
 #[non_exhaustive]
 #[derive(Copy, Clone, PartialEq, Eq)]
@@ -18,16 +15,18 @@ pub struct Signal<T> {
 }
 
 impl<T> Signal<T> {
-    pub fn create(value: T) -> Result<Self> {
+    pub fn create(value: T) -> Self {
         let data = Rc::new(RefCell::new(value));
 
-        Ok(Self { value: data })
+        Self { value: data }
     }
 
-    pub fn value(&self) -> Ref<'_, T> {
-        self.value.borrow()
+    pub fn value(&self) -> T
+    where
+        T: Clone,
+    {
+        self.value.borrow().clone()
     }
-
     pub fn update<R>(&self, f: impl FnOnce(&mut T)) {
         {
             let mut borrow = self.value.borrow_mut();

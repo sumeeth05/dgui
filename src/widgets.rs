@@ -67,7 +67,6 @@ pub enum WidgetType {
         value: f64,
         min: f64,
         max: f64,
-        onchange: Option<Box<dyn Fn()>>,
     },
     Hyperlink {
         label: String,
