@@ -63,10 +63,16 @@ pub enum FontStyle {
     Italic,
 }
 
+pub enum Dimension {
+    Auto,
+    Px(f32),
+    Percent(f32),
+}
+
 #[derive(Default)]
 pub struct Style {
-    width: Option<f32>,
-    height: Option<f32>,
+    width: Option<Dimension>,
+    height: Option<Dimension>,
     color: Option<Rgba>,
     background_color: Option<Rgba>,
     padding: Option<Spacing>,
@@ -81,11 +87,11 @@ pub struct Style {
 }
 
 impl Style {
-    pub fn width(&mut self, width: f32) {
+    pub fn width(&mut self, width: Dimension) {
         self.width = Some(width)
     }
 
-    pub fn height(&mut self, height: f32) {
+    pub fn height(&mut self, height: Dimension) {
         self.height = Some(height)
     }
 
