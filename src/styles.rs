@@ -1,5 +1,3 @@
-use crate::Result;
-
 pub struct Rgba {
     pub red: f32,
     pub green: f32,
@@ -8,13 +6,13 @@ pub struct Rgba {
 }
 
 impl Rgba {
-    pub fn new(red: f32, green: f32, blue: f32, alpha: f32) -> Result<Self> {
-        Ok(Self {
+    pub fn new(red: f32, green: f32, blue: f32, alpha: f32) -> Self {
+        Self {
             red,
             green,
             blue,
             alpha,
-        })
+        }
     }
 }
 
@@ -26,13 +24,13 @@ pub struct Spacing {
 }
 
 impl Spacing {
-    pub fn new(top: f32, bottom: f32, left: f32, right: f32) -> Result<Self> {
-        Ok(Self {
+    pub fn new(top: f32, bottom: f32, left: f32, right: f32) -> Self {
+        Self {
             top,
             bottom,
             left,
             right,
-        })
+        }
     }
 
     pub fn uniform(value: f32) -> Self {
@@ -83,55 +81,55 @@ pub struct Style {
 }
 
 impl Style {
-    pub fn width(&mut self, width: Option<f32>) {
-        self.width = width
+    pub fn width(&mut self, width: f32) {
+        self.width = Some(width)
     }
 
-    pub fn height(&mut self, height: Option<f32>) {
-        self.height = height
+    pub fn height(&mut self, height: f32) {
+        self.height = Some(height)
     }
 
-    pub fn color(&mut self, color: Option<Rgba>) {
-        self.color = color
+    pub fn color(&mut self, color: Rgba) {
+        self.color = Some(color)
     }
 
-    pub fn background_color(&mut self, color: Option<Rgba>) {
-        self.background_color = color
+    pub fn background_color(&mut self, color: Rgba) {
+        self.background_color = Some(color)
     }
 
-    pub fn padding(&mut self, padding: Option<Spacing>) {
-        self.padding = padding
+    pub fn padding(&mut self, padding: Spacing) {
+        self.padding = Some(padding)
     }
 
-    pub fn margin(&mut self, margin: Option<Spacing>) {
-        self.margin = margin
+    pub fn margin(&mut self, margin: Spacing) {
+        self.margin = Some(margin)
     }
 
-    pub fn border_radius(&mut self, radius: Option<f32>) {
-        self.border_radius = radius
+    pub fn border_radius(&mut self, radius: f32) {
+        self.border_radius = Some(radius)
     }
 
-    pub fn border_color(&mut self, color: Option<Rgba>) {
-        self.border_color = color
+    pub fn border_color(&mut self, color: Rgba) {
+        self.border_color = Some(color)
     }
 
-    pub fn border_width(&mut self, width: Option<f32>) {
-        self.border_width = width
+    pub fn border_width(&mut self, width: f32) {
+        self.border_width = Some(width)
     }
 
-    pub fn position(&mut self, position: Option<Position>) {
-        self.position = position
+    pub fn position(&mut self, position: Position) {
+        self.position = Some(position)
     }
 
-    pub fn font_size(&mut self, size: Option<f32>) {
-        self.font_size = size
+    pub fn font_size(&mut self, size: f32) {
+        self.font_size = Some(size)
     }
 
-    pub fn font_weight(&mut self, weight: Option<f32>) {
-        self.font_weight = weight
+    pub fn font_weight(&mut self, weight: f32) {
+        self.font_weight = Some(weight)
     }
 
-    pub fn font_style(&mut self, style: Option<FontStyle>) {
-        self.font_style = style
+    pub fn font_style(&mut self, style: FontStyle) {
+        self.font_style = Some(style)
     }
 }
