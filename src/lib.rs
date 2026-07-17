@@ -4,7 +4,6 @@ use thiserror::Error;
 
 use crate::{signal::Flags, styles::Style, widgets::Kind};
 
-mod events;
 pub mod layout;
 mod primitives;
 pub mod signal;
