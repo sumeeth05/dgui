@@ -65,6 +65,7 @@ pub enum FontStyle {
 
 pub enum Dimension {
     Auto,
+    Max,
     Px(f32),
     Percent(f32),
 }
