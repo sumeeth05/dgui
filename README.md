@@ -12,7 +12,7 @@ A pure Rust, renderer-agnostic, platform-agnostic reactive retained-mode GUI fra
 
 ## Features
 
-- 🦀 Pure Rust with zero native dependencies.
+- 🦀 Built entirely in Rust.
 - 🎨 Renderer agnostic — works with any graphics backend.
 - 🌍 Platform agnostic — compatible with any windowing or event library.
 - ⚡ Reactive signals automatically update the UI.
