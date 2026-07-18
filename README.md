@@ -26,32 +26,32 @@ A pure Rust, renderer-agnostic, platform-agnostic reactive retained-mode GUI fra
 ### Example
 
 ```rust
-    let count = Signal::create(0);
+let count = Signal::create(0);
 
-    Widget::panel(
-        vec![
-            Widget::text("Counter", None),
+Widget::panel(
+    vec![
+        Widget::text("Counter", None),
 
-            Widget::text(count.value(), None),
+        Widget::text(count.value(), None),
 
-            Widget::button(
-                vec![Widget::text("+", None)],
-                || {
-                    count.set(|value| *value += 1);
-                },
-                None,
-            ),
+        Widget::button(
+            vec![Widget::text("+", None)],
+            || {
+                count.set(|value| *value += 1);
+            },
+            None,
+        ),
 
-            Widget::button(
-                vec![Widget::text("-", None)],
-                || {
-                    count.set(|value| *value -= 1);
-                },
-                None,
-            ),
-        ],
-        Styles::default(),
-    );
+        Widget::button(
+            vec![Widget::text("-", None)],
+            || {
+                count.set(|value| *value -= 1);
+            },
+            None,
+        ),
+    ],
+    Styles::default(),
+);
 ```
 
 ## 📄 License
