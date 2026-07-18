@@ -23,7 +23,7 @@ A pure Rust, renderer-agnostic, platform-agnostic reactive retained-mode GUI fra
 - 🚀 Lightweight, fast, and highly customizable.
 - 🔀 Native Node Graph Support.
 
-# Example
+### Example
 
 ```rust
     let count = Signal::create(0);
