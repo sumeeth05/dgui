@@ -50,6 +50,9 @@ let ui = Widget::panel(
     Styles::default(),
 );
 
+
+//In Application Loop
+
 let layout = Layout::new(ui);
 
 let mut draw = layout.build();
