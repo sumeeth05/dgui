@@ -17,8 +17,8 @@ A pure Rust, renderer-agnostic, platform-agnostic reactive retained-mode GUI fra
 - 🌍 Platform agnostic — compatible with any windowing or event library.
 - ⚡ Reactive signals automatically update the UI.
 - 🎮 Built for desktop applications, tools, and games.
-- 🎭 CSS-inspired styling with animations.
-- 🧩 Composable widgets with an ergonomic API.
+- 🎭 CSS-inspired styling and animations.
+- 🧩 Composable widgets with an easy to use API.
 - 📦 Modular architecture.
 - 🚀 Lightweight, fast, and highly customizable.
 - 🔀 Native Node Graph Support.
