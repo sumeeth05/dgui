@@ -27,7 +27,7 @@ impl<T> Signal<T> {
     {
         self.value.borrow().clone()
     }
-    pub fn update<R>(&self, f: impl FnOnce(&mut T)) {
+    pub fn set(&self, f: impl FnOnce(&mut T)) {
         {
             let mut borrow = self.value.borrow_mut();
             f(&mut *borrow);

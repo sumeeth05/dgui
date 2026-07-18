@@ -18,8 +18,7 @@ A pure Rust, renderer-agnostic, platform-agnostic reactive retained-mode GUI fra
 - ⚡ Reactive signals automatically update the UI.
 - 🎮 Built for desktop applications, tools, and games.
 - 🎭 CSS-inspired styling and animations.
-- 🧩 Composable widgets with an easy to use API.
-- 📦 Modular architecture.
+- 📦 Modular architecture with easy to use API.
 - 🚀 Lightweight, fast, and highly customizable.
 - 🔀 Native Node Graph Support.
 
@@ -28,10 +27,8 @@ A pure Rust, renderer-agnostic, platform-agnostic reactive retained-mode GUI fra
 ```rust
 let count = Signal::create(0);
 
-Widget::panel(
+let ui = Widget::panel(
     vec![
-        Widget::text("Counter", None),
-
         Widget::text(count.value(), None),
 
         Widget::button(
@@ -52,6 +49,20 @@ Widget::panel(
     ],
     Styles::default(),
 );
+
+let layout = Layout::new(ui);
+
+let mut draw = layout.build();
+
+match layout.flags(){
+    Flags::SIGNALED => {
+       draw = layout.build();
+    },
+    Flags::UNSIGNALED => {
+        draw
+    },
+    _ => {}
+}
 ```
 
 ## 📄 License
