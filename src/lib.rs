@@ -2,8 +2,14 @@ use std::cell::Cell;
 
 use thiserror::Error;
 
-use crate::{signal::Flags, styles::Style, widgets::WidgetType};
+use crate::{
+    events::Event,
+    signal::{Flags, Value},
+    styles::Style,
+    widgets::WidgetType,
+};
 
+mod events;
 pub mod layout;
 pub mod signal;
 pub mod styles;
@@ -59,16 +65,19 @@ impl Widget {
         }
     }
 
-    pub fn collapsible(
+    pub fn collapsible<F>(
         children: Vec<Widget>,
         styles: Option<Style>,
-        expand: bool,
-        ontoggle: Box<dyn Fn(bool)>,
-    ) -> Self {
+        expand: impl Into<Value<bool>>,
+        ontoggle: F,
+    ) -> Self
+    where
+        F: Fn() + 'static,
+    {
         Self {
             type_of: WidgetType::Collapsible {
-                expand,
-                ontoggle: Some(ontoggle),
+                expand: expand.into(),
+                ontoggle: Box::new(ontoggle),
             },
             children: Some(children),
             styles,
@@ -91,130 +100,157 @@ impl Widget {
         }
     }
 
-    pub fn button(
+    pub fn button<F1, F2>(
         children: Vec<Widget>,
         styles: Option<Style>,
-        onclick: Option<Box<dyn Fn()>>,
-        onhover: Option<Box<dyn Fn()>>,
-    ) -> Self {
+        onclick: F1,
+        onhover: F2,
+    ) -> Self
+    where
+        F1: Fn() + 'static,
+        F2: Fn() + 'static,
+    {
         Self {
-            type_of: WidgetType::Button { onclick, onhover },
+            type_of: WidgetType::Button {
+                onclick: Box::new(onclick),
+                onhover: Box::new(onhover),
+            },
             children: Some(children),
             styles,
         }
     }
 
-    pub fn switch(checked: bool, styles: Option<Style>, ontoggle: Box<dyn Fn(bool)>) -> Self {
+    pub fn switch<F>(value: impl Into<Value<bool>>, styles: Option<Style>, ontoggle: F) -> Self
+    where
+        F: Fn() + 'static,
+    {
         Self {
             type_of: WidgetType::Switch {
-                checked,
-                ontoggle: Some(ontoggle),
+                checked: value.into(),
+                ontoggle: Box::new(ontoggle),
             },
             children: None,
             styles,
         }
     }
 
-    pub fn checkbox(
-        checked: bool,
-        ontoggle: Option<Box<dyn Fn(bool)>>,
-        styles: Option<Style>,
-    ) -> Self {
+    pub fn checkbox<F>(value: impl Into<Value<bool>>, ontoggle: F, styles: Option<Style>) -> Self
+    where
+        F: Fn() + 'static,
+    {
         Self {
-            type_of: WidgetType::Checkbox { checked, ontoggle },
+            type_of: WidgetType::Checkbox {
+                checked: value.into(),
+                ontoggle: Box::new(ontoggle),
+            },
             children: None,
             styles,
         }
     }
 
-    pub fn radio_button(
+    pub fn radio_button<F>(
         label: impl Into<String>,
-        selected: bool,
-        onchange: Option<Box<dyn Fn()>>,
+        value: impl Into<Value<bool>>,
+        onchange: F,
         styles: Option<Style>,
-    ) -> Self {
+    ) -> Self
+    where
+        F: Fn() + 'static,
+    {
         Self {
             type_of: WidgetType::RadioButton {
                 label: label.into(),
-                selected,
-                onchange,
+                selected: value.into(),
+                onchange: Box::new(onchange),
             },
             children: None,
             styles,
         }
     }
 
-    pub fn slider(
-        value: f64,
+    pub fn slider<F>(
+        value: impl Into<Value<f64>>,
         min: f64,
         max: f64,
-        onchange: Option<Box<dyn Fn(f64)>>,
+        onchange: F,
         styles: Option<Style>,
-    ) -> Self {
+    ) -> Self
+    where
+        F: Fn() + 'static,
+    {
         Self {
             type_of: WidgetType::Slider {
-                value,
+                value: value.into(),
                 min,
                 max,
-                onchange,
+                onchange: Box::new(onchange),
             },
             children: None,
             styles,
         }
     }
 
-    pub fn drag_value(
-        value: f64,
+    pub fn drag_value<F>(
+        value: impl Into<Value<f64>>,
         min: f64,
         max: f64,
-        onchange: Option<Box<dyn Fn(f64)>>,
+        onchange: F,
         styles: Option<Style>,
-    ) -> Self {
+    ) -> Self
+    where
+        F: Fn() + 'static,
+    {
         Self {
             type_of: WidgetType::DragValue {
-                value,
+                value: value.into(),
                 min,
                 max,
-                onchange,
+                onchange: Box::new(onchange),
             },
             children: None,
             styles,
         }
     }
 
-    pub fn text_input(
-        value: impl Into<String>,
-        onchange: Option<Box<dyn Fn(String)>>,
+    pub fn text_input<F>(
+        value: impl Into<Value<String>>,
+        onchange: F,
         styles: Option<Style>,
-    ) -> Self {
+    ) -> Self
+    where
+        F: Fn(Event) + 'static,
+    {
         Self {
             type_of: WidgetType::TextInput {
                 value: value.into(),
-                onchange,
+                onchange: Box::new(onchange),
             },
             children: None,
             styles,
         }
     }
 
-    pub fn select(
+    pub fn select<F>(
         label: impl Into<String>,
         options: Vec<String>,
-        onchange: Option<Box<dyn Fn(String)>>,
+        onchange: F,
         styles: Option<Style>,
-    ) -> Self {
+    ) -> Self
+    where
+        F: Fn() + 'static,
+    {
         Self {
             type_of: WidgetType::Select {
                 label: label.into(),
                 options,
-                onchange,
+                onchange: Box::new(onchange),
             },
             children: None,
             styles,
         }
     }
 
-    pub fn text(text: impl Into<String>, styles: Option<Style>) -> Self {
+    pub fn text(text: impl Into<Value<String>>, styles: Option<Style>) -> Self {
         Self {
             type_of: WidgetType::Text { text: text.into() },
             children: None,
@@ -242,23 +278,31 @@ impl Widget {
         }
     }
 
-    pub fn progress(value: f64, min: f64, max: f64, styles: Option<Style>) -> Self {
+    pub fn progress(
+        value: impl Into<Value<f64>>,
+        min: f64,
+        max: f64,
+        styles: Option<Style>,
+    ) -> Self {
         Self {
-            type_of: WidgetType::ProgressBar { value, min, max },
+            type_of: WidgetType::ProgressBar {
+                value: value.into(),
+                min,
+                max,
+            },
             children: None,
             styles,
         }
     }
 
-    pub fn link(
-        label: impl Into<String>,
-        onclick: Option<Box<dyn Fn()>>,
-        styles: Option<Style>,
-    ) -> Self {
+    pub fn link<F>(label: impl Into<String>, onclick: F, styles: Option<Style>) -> Self
+    where
+        F: Fn() + 'static,
+    {
         Self {
             type_of: WidgetType::Hyperlink {
                 label: label.into(),
-                onclick,
+                onclick: Box::new(onclick),
             },
             children: None,
             styles,

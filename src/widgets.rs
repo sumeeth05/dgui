@@ -1,3 +1,5 @@
+use crate::{events::Event, signal::Value};
+
 pub enum WidgetType {
     Panel,
     ScrollArea,
@@ -6,53 +8,53 @@ pub enum WidgetType {
         label: String,
     },
     Collapsible {
-        expand: bool,
-        ontoggle: Option<Box<dyn Fn(bool)>>,
+        expand: Value<bool>,
+        ontoggle: Box<dyn Fn()>,
     },
     Splitter,
     Window,
 
     Button {
-        onclick: Option<Box<dyn Fn()>>,
-        onhover: Option<Box<dyn Fn()>>,
+        onclick: Box<dyn Fn()>,
+        onhover: Box<dyn Fn()>,
     },
     Checkbox {
-        checked: bool,
-        ontoggle: Option<Box<dyn Fn(bool)>>,
+        checked: Value<bool>,
+        ontoggle: Box<dyn Fn()>,
     },
     Switch {
-        checked: bool,
-        ontoggle: Option<Box<dyn Fn(bool)>>,
+        checked: Value<bool>,
+        ontoggle: Box<dyn Fn()>,
     },
     RadioButton {
         label: String,
-        selected: bool,
-        onchange: Option<Box<dyn Fn()>>,
+        selected: Value<bool>,
+        onchange: Box<dyn Fn()>,
     },
     Slider {
-        value: f64,
+        value: Value<f64>,
         min: f64,
         max: f64,
-        onchange: Option<Box<dyn Fn(f64)>>,
+        onchange: Box<dyn Fn()>,
     },
     DragValue {
-        value: f64,
+        value: Value<f64>,
         min: f64,
         max: f64,
-        onchange: Option<Box<dyn Fn(f64)>>,
+        onchange: Box<dyn Fn()>,
     },
     TextInput {
-        value: String,
-        onchange: Option<Box<dyn Fn(String)>>,
+        value: Value<String>,
+        onchange: Box<dyn Fn(Event)>,
     },
     Select {
         label: String,
         options: Vec<String>,
-        onchange: Option<Box<dyn Fn(String)>>,
+        onchange: Box<dyn Fn()>,
     },
 
     Text {
-        text: String,
+        text: Value<String>,
     },
 
     Icon {
@@ -64,13 +66,13 @@ pub enum WidgetType {
     },
 
     ProgressBar {
-        value: f64,
+        value: Value<f64>,
         min: f64,
         max: f64,
     },
     Hyperlink {
         label: String,
-        onclick: Option<Box<dyn Fn()>>,
+        onclick: Box<dyn Fn()>,
     },
 
     Separator,

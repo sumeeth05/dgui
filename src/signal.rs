@@ -9,7 +9,6 @@ pub enum Flags {
     UNSIGNALED,
 }
 
-#[derive(Clone)]
 pub struct Signal<T> {
     pub value: Rc<RefCell<T>>,
 }
@@ -27,6 +26,7 @@ impl<T> Signal<T> {
     {
         self.value.borrow().clone()
     }
+
     pub fn set(&self, f: impl FnOnce(&mut T)) {
         {
             let mut borrow = self.value.borrow_mut();
@@ -34,5 +34,39 @@ impl<T> Signal<T> {
         }
 
         DIRTY.with(|flags| flags.set(Flags::SIGNALED));
+    }
+}
+
+impl<T> Clone for Signal<T> {
+    fn clone(&self) -> Self {
+        Self {
+            value: Rc::clone(&self.value),
+        }
+    }
+}
+
+pub enum Value<T> {
+    Static(T),
+    Dynamic(Signal<T>),
+}
+
+impl<T: Clone> Value<T> {
+    pub fn get(&self) -> T {
+        match self {
+            Self::Static(value) => value.to_owned(),
+            Self::Dynamic(value) => value.value(),
+        }
+    }
+}
+
+impl<T> From<T> for Value<T> {
+    fn from(value: T) -> Self {
+        Self::Static(value)
+    }
+}
+
+impl<T> From<&Signal<T>> for Value<T> {
+    fn from(signal: &Signal<T>) -> Self {
+        Self::Dynamic(signal.clone())
     }
 }

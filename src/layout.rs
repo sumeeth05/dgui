@@ -1,6 +1,6 @@
 use crate::{DIRTY, Result, Widget, signal::Flags};
 
-mod primitives;
+mod bounds;
 mod tessellation;
 
 pub struct Layout {
