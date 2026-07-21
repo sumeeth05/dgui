@@ -29,7 +29,7 @@ let count = Signal::create(0);
 
 let ui = Widget::panel(
     vec![
-        Widget::text(count, None),
+        Widget::text(&count, None),
 
         Widget::button(
             vec![Widget::text("+", None)],
